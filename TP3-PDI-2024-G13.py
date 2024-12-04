@@ -34,6 +34,8 @@ def filtrar_consecutivos(lista: list)-> list:
 
     return resultado
 
+
+
 for i in range(1, 5):
     
     cap = cv2.VideoCapture(f'videos/tirada_{i}.mp4')
@@ -115,7 +117,6 @@ for i in range(1, 5):
     # Iteramos sobre todos los frames, buscando los frames consecutivos que anteriormente guardamos 
     # Luego, trabajamos sobre el primer frame que tenga los dados estáticos, iterando en cada centroide, o sea, en cada dado
     for indx, imagen in enumerate(frames):
-        imagen = cv2.cvtColor(imagen, cv2.COLOR_BGR2RGB)
         if indx in frames_finales:
             if frames_finales.index(indx) == 0:
                 imagen_gris = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
@@ -147,8 +148,8 @@ for i in range(1, 5):
                                         valor_dado += 1
                             
                             # Dibujamos los cuadrados de cada dado y la cantidad de puntos en cada dado
-                            cv2.rectangle(imagen, (x-padding,y-padding), (x+padding,y+padding), (0,0,255), 5)
-                            cv2.putText(imagen, str(valor_dado), (x-47,y-53), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5, cv2.LINE_AA)
+                            cv2.rectangle(imagen, (x-padding,y-padding), (x+padding,y+padding), (255,0,0), 5)
+                            cv2.putText(imagen, str(valor_dado), (x-47,y-53), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5, cv2.LINE_AA)
                             num_dados.append(valor_dado)
                 out.write(imagen)
             else:
@@ -158,8 +159,8 @@ for i in range(1, 5):
                     if indx == indice_centroide:
                         for centroide in centroides:
                             x,y = centroide
-                            cv2.rectangle(imagen, (x-padding,y-padding), (x+padding,y+padding), (0,0,255), 5)
-                            cv2.putText(imagen, str(num_dados[cont_dado]), (x-47,y-53), cv2.FONT_HERSHEY_SIMPLEX, 2, (255, 0, 0), 5, cv2.LINE_AA)
+                            cv2.rectangle(imagen, (x-padding,y-padding), (x+padding,y+padding), (255,0,), 5)
+                            cv2.putText(imagen, str(num_dados[cont_dado]), (x-47,y-53), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 5, cv2.LINE_AA)
                             cont_dado += 1
                 out.write(imagen)
         else:   
